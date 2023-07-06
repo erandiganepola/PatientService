@@ -5,4 +5,4 @@ endpoints:
     type: REST
     networkVisibility: Public
     context: /patients
-    schemaFilePath: PatientService/PatientServiceConfigs/src/main/resources/metadata/PatientAPI_swagger.yaml
+    schemaFilePath: PatientServiceConfigs/src/main/resources/metadata/PatientAPI_swagger.yaml
