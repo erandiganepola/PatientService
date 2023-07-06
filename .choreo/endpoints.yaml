@@ -1,9 +1,9 @@
 version: 1.0
 endpoints:
-  - name: PatientAPI
+  - name: ScienceLabAPI
     port: 8290
     type: REST
     networkVisibility: Public
-    context: /patients
+    context: /laboratory
     schemaFilePath: PatientService/PatientServiceConfigs/src/main/resources/metadata/PatientAPI_swagger.yaml
 
