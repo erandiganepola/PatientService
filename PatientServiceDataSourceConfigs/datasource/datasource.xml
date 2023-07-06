@@ -1,0 +1,15 @@
+<datasource>
+  <name>LocalDB</name>
+  <description>MySQL Connection to patient DB</description>
+  <jndiConfig useDataSourceFactory="false">
+    <name>LocalDB</name>
+  </jndiConfig>
+  <definition type="RDBMS">
+    <configuration>
+      <driverClassName>com.mysql.cj.jdbc.Driver</driverClassName>
+      <url>jdbc:mysql://choreodemo.mysql.database.azure.com:3306/patientdb</url>
+      <username>wso2</username>
+      <password>demo@1234</password>
+    </configuration>
+  </definition>
+</datasource>

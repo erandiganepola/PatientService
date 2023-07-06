@@ -1,0 +1,70 @@
+<data disableLegacyBoxcarringMode="false" enableBatchRequests="false" enableBoxcarring="false" name="PatientDataService" serviceNamespace="http://ws.wso2.org/dataservice" serviceStatus="active" transports="http https">
+  <description>single service for whole database</description>
+  <query id="select_all_patients_query" useConfig="default">
+    <sql>SELECT first_name, last_name, dob, contact_number FROM patients</sql>
+    <result element="patientsCollection" rowName="patients">
+      <element column="dob" name="dob" xsdType="xs:string" />
+      <element column="last_name" name="last_name" xsdType="xs:string" />
+      <element column="first_name" name="first_name" xsdType="xs:string" />
+      <element column="contact_number" name="contact_number" xsdType="xs:string" />
+    </result>
+  </query>
+  <resource method="GET" path="patients">
+    <call-query href="select_all_patients_query" />
+  </resource>
+  <query id="insert_patients_query" useConfig="default">
+    <sql>INSERT INTO patients(dob,last_name,first_name,contact_number) VALUES(?,?,?,?)</sql>
+    <param name="dob" ordinal="1" paramType="SCALAR" sqlType="STRING" type="IN" />
+    <param name="last_name" ordinal="2" paramType="SCALAR" sqlType="STRING" type="IN" />
+    <param name="first_name" ordinal="3" paramType="SCALAR" sqlType="STRING" type="IN" />
+    <param name="contact_number" ordinal="4" paramType="SCALAR" sqlType="STRING" type="IN" />
+  </query>
+  <resource method="POST" path="patients">
+    <call-query href="insert_patients_query">
+      <with-param name="dob" query-param="dob" />
+      <with-param name="last_name" query-param="last_name" />
+      <with-param name="first_name" query-param="first_name" />
+      <with-param name="contact_number" query-param="contact_number" />
+    </call-query>
+  </resource>
+  <query id="update_patients_query" useConfig="default">
+    <sql>UPDATE patients SET dob=?,last_name=?,first_name=?,contact_number=? WHERE id=?</sql>
+    <param name="dob" ordinal="1" paramType="SCALAR" sqlType="STRING" type="IN" />
+    <param name="last_name" ordinal="2" paramType="SCALAR" sqlType="STRING" type="IN" />
+    <param name="first_name" ordinal="3" paramType="SCALAR" sqlType="STRING" type="IN" />
+    <param name="contact_number" ordinal="4" paramType="SCALAR" sqlType="STRING" type="IN" />
+    <param name="id" ordinal="5" paramType="SCALAR" sqlType="INTEGER" type="IN" />
+  </query>
+  <resource method="PUT" path="patients">
+    <call-query href="update_patients_query">
+      <with-param name="dob" query-param="dob" />
+      <with-param name="last_name" query-param="last_name" />
+      <with-param name="first_name" query-param="first_name" />
+      <with-param name="contact_number" query-param="contact_number" />
+      <with-param name="id" query-param="id" />
+    </call-query>
+  </resource>
+  <query id="delete_patients_query" useConfig="default">
+    <sql>DELETE FROM patients WHERE id=?</sql>
+    <param name="id" ordinal="1" paramType="SCALAR" sqlType="INTEGER" type="IN" />
+  </query>
+  <resource method="DELETE" path="patients">
+    <call-query href="delete_patients_query">
+      <with-param name="id" query-param="id" />
+    </call-query>
+  </resource>
+  <config id="default">
+    <property name="carbon_datasource_name">LocalDB</property>
+  </config>
+  <operation name="AddPatient">
+    <call-query href="insert_patients_query">
+      <with-param name="dob" query-param="dob" />
+      <with-param name="last_name" query-param="last_name" />
+      <with-param name="first_name" query-param="first_name" />
+      <with-param name="contact_number" query-param="contact_number" />
+    </call-query>
+  </operation>
+  <operation name="GetPatients">
+    <call-query href="select_all_patients_query" />
+  </operation>
+</data>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<api context="/patients" name="PatientAPI" xmlns="http://ws.apache.org/ns/synapse">
+    <resource methods="POST" uri-template="/">
+        <inSequence>
+            <log description="Request" level="full"/>
+            <propertyGroup description="Extract Fields">
+                <property expression="json-eval($.firstName)" name="body.firstName" scope="default" type="STRING"/>
+                <property expression="json-eval($.lastName)" name="body.lastName" scope="default" type="STRING"/>
+                <property expression="json-eval($.dob)" name="body.dob" scope="default" type="STRING"/>
+                <property expression="json-eval($.contactNumber)" name="body.contactNumber" scope="default" type="STRING"/>
+            </propertyGroup>
+            <dataServiceCall description="Add Patient" serviceName="PatientDataService">
+                <operations type="single">
+                    <operation name="AddPatient">
+                        <param evaluator="xml" expression="get-property('body.dob')" name="dob"/>
+                        <param evaluator="xml" expression="get-property('body.lastName')" name="last_name"/>
+                        <param evaluator="xml" expression="get-property('body.firstName')" name="first_name"/>
+                        <param evaluator="xml" expression="get-property('body.contactNumber')" name="contact_number"/>
+                    </operation>
+                </operations>
+                <source type="inline"/>
+                <target type="body"/>
+            </dataServiceCall>
+            <respond description="Respond"/>
+        </inSequence>
+        <outSequence/>
+        <faultSequence/>
+    </resource>
+    <resource methods="GET" uri-template="/">
+        <inSequence>
+            <log description="Request"/>
+            <dataServiceCall serviceName="PatientDataService">
+                <operations type="single">
+                    <operation name="GetPatients"/>
+                </operations>
+                <source type="inline"/>
+                <target type="body"/>
+            </dataServiceCall>
+            <propertyGroup description="Set Content Type">
+                <property name="messageType" scope="axis2" type="STRING" value="application/json"/>
+                <property name="contentType" scope="axis2" type="STRING" value="application/json"/>
+            </propertyGroup>
+            <respond description="Respond"/>
+        </inSequence>
+        <outSequence/>
+        <faultSequence/>
+    </resource>
+</api>
