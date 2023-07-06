@@ -8,13 +8,4 @@
     <artifact name="PatientAPI_metadata" groupId="org.wso2.demo.metadata" version="1.0.0" type="synapse/metadata" serverRole="EnterpriseServiceBus">
         <file>src/main/resources/metadata/PatientAPI_metadata.yaml</file>
     </artifact>
-    <artifact name="test" groupId="org.wso2.demo.api" version="1.0.0" type="synapse/api" serverRole="EnterpriseServiceBus">
-        <file>src/main/synapse-config/api/test.xml</file>
-    </artifact>
-    <artifact name="test_swagger" groupId="org.wso2.demo.metadata" version="1.0.0" type="synapse/metadata" serverRole="EnterpriseServiceBus">
-        <file>src/main/resources/metadata/test_swagger.yaml</file>
-    </artifact>
-    <artifact name="test_metadata" groupId="org.wso2.demo.metadata" version="1.0.0" type="synapse/metadata" serverRole="EnterpriseServiceBus">
-        <file>src/main/resources/metadata/test_metadata.yaml</file>
-    </artifact>
 </artifacts>
